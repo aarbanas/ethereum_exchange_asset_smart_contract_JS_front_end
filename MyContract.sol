@@ -41,7 +41,7 @@ contract TransferOwnerWithPrice {
     /**Write to EVM log when transfer happens 
         *It is used for refreshing Front end web application in JS API
         *Web3 constanly listens to these event, when they activate, page refreshes*/
-    event Transfer(uint saleDate, address from, address to, uint _salePrice);
+    event Transfer(uint saleDate, uint _blockNumber, address from, address to, uint _salePrice);
     event PriceChanged(uint _newPrice);
     event ChangeSelling(bool _selling);
 
@@ -98,7 +98,7 @@ contract TransferOwnerWithPrice {
 
         owner = newOwner;
         prevOwner.transfer(salePrice);
-        emit Transfer(now, prevOwner, newOwner, salePrice);
+        emit Transfer(now, block.number, prevOwner, newOwner, salePrice);
         
         resetSale();
     }
